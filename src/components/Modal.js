@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
-import Modal from 'react-modal';
-import styles from '../stylings/Modal.module.css'
+import React, { useState } from "react";
+import Modal from "react-modal";
+import styles from "../stylings/Modal.module.css";
 const customStyles = {
   content: {
     top: "50%",
@@ -10,9 +10,9 @@ const customStyles = {
     marginRight: "-50%",
     transform: "translate(-50%, -50%)",
     padding: 40,
-    display: 'flex',
-    flexDirection: 'column',
-    gap: 30
+    display: "flex",
+    flexDirection: "column",
+    gap: 30,
   },
   overlay: {
     position: "fixed",
@@ -24,16 +24,32 @@ const customStyles = {
   },
 };
 
-
-function ModalComponent() {
+function ModalComponent({ addNewTask }) {
   const [modalIsOpen, setIsOpen] = React.useState(false);
-
+  // Am creat un state pentru fiecare input
+  const [taskId, setTaskId] = useState("");
+  const [taskStatus, setTaskStatus] = useState("");
+  const [taskMessage, setTaskMessage] = useState("");
+  const [taskDate, setTaskDate] = useState("");
   function openModal() {
     setIsOpen(true);
   }
 
   function closeModal() {
     setIsOpen(false);
+  }
+
+  function handlerSubmit(event) {
+    event.preventDefault(); // previne refreshul paginii
+    const newTaskData = {
+      // transpunem datele din input intr-un obiect
+      id: taskId,
+      status: taskStatus,
+      message: taskMessage,
+      dueDate: new Date(taskDate),
+    };
+    addNewTask(newTaskData); // trimite datele din Modal in TaskViewer
+    closeModal(); // inchide fereastra de modal dupa adaugarea task-ului
   }
 
   return (
@@ -45,12 +61,36 @@ function ModalComponent() {
         style={customStyles}
         contentLabel="Example Modal"
       >
-        <h1>MODAL</h1>
-
+        {/* Am creat 4 inputuri de date */}
+        <input
+          type="text"
+          name="taskId"
+          value={taskId}
+          onChange={(event) => setTaskId(event.target.value)} // eveniment la modficarea continutului
+        />
+        <input
+          type="text"
+          name="taskStatus"
+          value={taskStatus}
+          onChange={(event) => setTaskStatus(event.target.value)} // eveniment la modficarea continutului
+        />
+        <input
+          type="text"
+          name="taskMessage"
+          value={taskMessage}
+          onChange={(event) => setTaskMessage(event.target.value)} // eveniment la modficarea continutului
+        />
+        <input
+          type="date"
+          name="taskDate"
+          value={taskDate}
+          onChange={(event) => setTaskDate(event.target.value)} // eveniment la modficarea continutului
+        />
+        {/* eveniment la apasarea butonului */}
+        <button onClick={handlerSubmit}>Add</button>
       </Modal>
     </div>
   );
 }
 
-
-export default ModalComponent
+export default ModalComponent;
