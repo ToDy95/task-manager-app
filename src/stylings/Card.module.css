@@ -76,3 +76,9 @@
   line-height: normal;
   letter-spacing: -0.42px;
 }
+
+.fourLine {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

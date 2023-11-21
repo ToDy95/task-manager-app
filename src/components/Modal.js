@@ -62,24 +62,31 @@ function ModalComponent({ addNewTask }) {
         contentLabel="Example Modal"
       >
         {/* Am creat 4 inputuri de date */}
+        <label htmlFor="taskID">ID</label>
         <input
           type="text"
           name="taskId"
           value={taskId}
           onChange={(event) => setTaskId(event.target.value)} // eveniment la modficarea continutului
         />
+        <label htmlFor="taskStatus">Status</label>
+
         <input
           type="text"
           name="taskStatus"
           value={taskStatus}
           onChange={(event) => setTaskStatus(event.target.value)} // eveniment la modficarea continutului
         />
+        <label htmlFor="taskMessage">Message</label>
+
         <input
           type="text"
           name="taskMessage"
           value={taskMessage}
           onChange={(event) => setTaskMessage(event.target.value)} // eveniment la modficarea continutului
         />
+        <label htmlFor="taskDate">Date</label>
+
         <input
           type="date"
           name="taskDate"
